@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BowlingApp.Controllers;
+using System;
 
 namespace BowlingApp
 {
@@ -6,7 +7,7 @@ namespace BowlingApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            BowlingController _bowlingController = new BowlingController();
         }
     }
 }

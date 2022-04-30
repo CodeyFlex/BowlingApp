@@ -37,7 +37,6 @@ namespace BowlingApp.Controllers
         
         private void RunGame() //Move this into view if possible
         {
-            //for (int i = 0; i < 21; i++)
             while (_currentThrow < 21)
             {
                 Console.WriteLine("Press enter to shoot");
@@ -48,6 +47,7 @@ namespace BowlingApp.Controllers
                 _bowlingView.Points = CalculateCurrentScoreboard;
                 Print_Scoreboard_Formatted(_bowlingView.Scoreboard);
                 _bowlingView.ShowValues();
+                CheckForThirdFrame();
             }
         }
         static void Print_Scoreboard_Formatted(int[] toPrint)
@@ -114,6 +114,15 @@ namespace BowlingApp.Controllers
                 _currentThrowIndex++;
             }
             Console.WriteLine("You hit " + _throw + " Pins!");
+        }
+
+        public void CheckForThirdFrame()
+        {
+            //Checking for the 21st shot
+            if (_currentThrow == 20 && IsAStrike(_bowlingView.Scoreboard[_currentThrow]) != true)
+            {
+                _currentThrow++;
+            }
         }
 
         //Calculation of the score

@@ -7,6 +7,7 @@ namespace BowlingApp
     {
         static void Main(string[] args)
         {
+            //Start program
             BowlingController _bowlingController = new BowlingController();
         }
     }

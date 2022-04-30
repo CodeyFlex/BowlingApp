@@ -21,6 +21,7 @@ namespace BowlingApp.Views
             Points = 0;
             CurrentPins = 10;
             _scoreboard = new int[21];
+            SetName();
             //GetValues();
         }
 
@@ -39,8 +40,15 @@ namespace BowlingApp.Views
 
         public void ShowValues()
         {
+            Console.WriteLine("Player Name: " + Name);
             Console.WriteLine("Current Pins: " + CurrentPins);
             Console.WriteLine("Points: " + Points);
+        }
+        private void SetName()
+        {
+            Console.WriteLine("Enter player name");
+            Name = Console.ReadLine();
+            Console.Clear();
         }
     }
 }

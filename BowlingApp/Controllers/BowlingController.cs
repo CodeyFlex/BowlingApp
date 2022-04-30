@@ -31,17 +31,11 @@ namespace BowlingApp.Controllers
 
             //Initialization Method calls
             //Currently breaks some tests
-            SetName();
             RunGame();
         }
         //Methods
-        private void SetName()
-        {
-            Console.WriteLine("Enter player name");
-            _bowlingView.Name = Console.ReadLine();
-            Console.Clear();
-        }
-        private void RunGame()
+        
+        private void RunGame() //Move this into view if possible
         {
             //for (int i = 0; i < 21; i++)
             while (_currentThrow < 21)
@@ -49,8 +43,7 @@ namespace BowlingApp.Controllers
                 Console.WriteLine("Press enter to shoot");
                 Console.ReadLine();
                 Console.Clear();
-
-                Console.WriteLine("Player Name: " + _bowlingView.Name);
+                
                 RandomThrow();
                 _bowlingView.Points = CalculateCurrentScoreboard;
                 Print_Scoreboard_Formatted(_bowlingView.Scoreboard);

@@ -11,7 +11,8 @@ namespace BowlingApp.Models
         //Properties
         private string _name;
         private int _points;
-        private int _current_Pins;
+        private int _currentPins;
+        private int _currentGuiThrow;
         private int[] _scoreboard;
 
         //Default constructor
@@ -20,15 +21,17 @@ namespace BowlingApp.Models
             Name = "Player";
             Points = 0;
             Current_Pins = 10;
+            CurrentGUIThrow = 0;
             Scoreboard = new int[21];
         }
 
         //Overloaded constructor
-        public BowlingGame(string name, int points, int current_Pins, int[] scoreboard) 
+        public BowlingGame(string name, int points, int current_Pins, int currentGuiThrow, int[] scoreboard) 
         {
             Name = name;
             Points = points;
             Current_Pins = current_Pins;
+            CurrentGUIThrow = currentGuiThrow;
             Scoreboard = scoreboard;
         }
 
@@ -48,16 +51,17 @@ namespace BowlingApp.Models
         public int Points { get => _points; set => _points = value; }
         public int Current_Pins
         {
-            get => _current_Pins;
+            get => _currentPins;
             set
             {
                 if (value < 0)
                     throw new ArgumentException("Amount of pins cannot be a negative value");
                 if (value > 10)
                     throw new ArgumentException("Current pins exceeded maximum amount of = 10");
-                _current_Pins = value;
+                _currentPins = value;
             }
         }
+        public int CurrentGUIThrow { get => _currentGuiThrow; set => _currentGuiThrow = value; }
         public int[] Scoreboard { get => _scoreboard; set => _scoreboard = value; }
     }
 }

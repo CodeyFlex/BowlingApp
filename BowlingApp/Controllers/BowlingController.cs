@@ -15,19 +15,20 @@ namespace BowlingApp.Controllers
         private BowlingGame _bowlingGame;
         private BowlingView _bowlingView;
             //Local
-        private int _currentThrow;
-        private int _currentThrowIndex; //Rename this
+        private int _currentCalculatorThrowIndex; //Rename this
         private Random _rnd;
-        private static string _format;
+        private static string _scoreboardFormat; //GUI scoreboard formatting
+        private int[] _scoreboardGUIArray; //GUI scoreboard
 
         //Constructor
         public BowlingController() 
         {
             //Initialization
             _bowlingView = new BowlingView();
-            _bowlingGame = new BowlingGame(_bowlingView.Name, _bowlingView.Points, _bowlingView.CurrentPins, _bowlingView.Scoreboard);
-            _currentThrow = 0;
+            _bowlingGame = new BowlingGame(_bowlingView.Name, _bowlingView.Points, _bowlingView.CurrentPins, _bowlingView.CurrentGUIThrow, _bowlingView.Scoreboard);
+            _currentCalculatorThrowIndex = 0;
             _rnd = new Random();
+            _scoreboardGUIArray = new int[21];
 
             //Initialization Method calls
             //Currently breaks some tests
@@ -37,24 +38,21 @@ namespace BowlingApp.Controllers
         
         private void RunGame() //Move this into view if possible
         {
-            while (_currentThrow < 21)
+            while (_bowlingView.CurrentGUIThrow < 21)
             {
-                Console.WriteLine("Press enter to shoot");
-                Console.ReadLine();
-                Console.Clear();
-                
-                RandomThrow();
-                _bowlingView.Points = CalculateCurrentScoreboard;
-                Print_Scoreboard_Formatted(_bowlingView.Scoreboard);
-                _bowlingView.ShowValues();
-                CheckForThirdFrame();
+                _bowlingView.DisplayThrowHint();
+                RandomThrow(); //User input bowling throw
+                _bowlingView.Points = CalculateCurrentScoreboard; //Sends points to the view
+                Print_Scoreboard_Formatted(_scoreboardGUIArray); //Prints scoreboard
+                _bowlingView.ShowValues(); //View call to show game values like Name, points & such
+                CheckForThirdFrame(); //Checks if the third and final frame will be played
             }
         }
         static void Print_Scoreboard_Formatted(int[] toPrint)
         {
-            _format = "[{0}, {1}] [{2}, {3}] [{4}, {5}] [{6}, {7}] [{8}, {9}] [{10}, {11}] [{12}, {13}] [{14}, {15}]" +
+            _scoreboardFormat = "[{0}, {1}] [{2}, {3}] [{4}, {5}] [{6}, {7}] [{8}, {9}] [{10}, {11}] [{12}, {13}] [{14}, {15}]" +
                       " [{16}, {17}] [{18}, {19}, {20}]";
-            Console.WriteLine(_format, toPrint.Cast<object>().ToArray());
+            Console.WriteLine(_scoreboardFormat, toPrint.Cast<object>().ToArray());
         }
 
         //This system only passes cause it counts consecutive, and ignores the 0 in between strikes
@@ -88,40 +86,48 @@ namespace BowlingApp.Controllers
         //Testing methods
         public void Throw(int pins)
         {
-            _bowlingView.Scoreboard[_currentThrow++] = pins;
+            _bowlingView.Scoreboard[_bowlingView.CurrentGUIThrow++] = pins;
         }
         //Game play methods
-        public void RandomThrow() //For game play
+        public void RandomThrow() //For GUI
         {
-            int _throw = _rnd.Next(0, _bowlingView.CurrentPins); //Gets random throw lower than current pins
+            int _throw = _rnd.Next(10, _bowlingView.CurrentPins); //Gets random throw lower than current pins
             _bowlingView.CurrentPins -= _throw; //changes current pins amount after throw
-            _bowlingView.Scoreboard[_currentThrowIndex] = _throw; //Adds throw score to scoreboard
-            if (_bowlingView.Scoreboard[_currentThrowIndex] == 10) //Strike
+            _bowlingView.Scoreboard[_currentCalculatorThrowIndex] = _throw; //Adds throw score to scoreboard
+            _scoreboardGUIArray[_bowlingView.CurrentGUIThrow] = _throw; //Adds throw to GUI scoreboard
+            if (_bowlingView.Scoreboard[_currentCalculatorThrowIndex] == 10 && _bowlingView.CurrentGUIThrow >= 18)
             {
-                _currentThrow += 2;
-                _currentThrowIndex++;
+                _bowlingView.CurrentGUIThrow++;
+                _currentCalculatorThrowIndex++;
                 _bowlingView.CurrentPins = 10;
             }
-            else if (_currentThrow % 2 == 1) //Every new frame
+            else if (_bowlingView.Scoreboard[_currentCalculatorThrowIndex] == 10) //Strike
             {
-                _currentThrow++;
-                _currentThrowIndex++;
+                _bowlingView.CurrentGUIThrow += 2;
+                _currentCalculatorThrowIndex++;
+                _bowlingView.CurrentPins = 10;
+            }
+            else if (_bowlingView.CurrentGUIThrow % 2 == 1 && _bowlingView.CurrentGUIThrow <= 19) //Every new frame
+            {
+                _bowlingView.CurrentGUIThrow++;
+                _currentCalculatorThrowIndex++;
                 _bowlingView.CurrentPins = 10;
             }
             else
             {
-                _currentThrow++;
-                _currentThrowIndex++;
+                _bowlingView.CurrentGUIThrow++;
+                _currentCalculatorThrowIndex++;
             }
-            Console.WriteLine("You hit " + _throw + " Pins!");
+
+            _bowlingView.DisplayPinsHit(_throw);
         }
 
         public void CheckForThirdFrame()
         {
             //Checking for the 21st shot
-            if (_currentThrow == 20 && IsAStrike(_bowlingView.Scoreboard[_currentThrow]) != true)
+            if (_bowlingView.CurrentGUIThrow == 20 && IsAStrike(_bowlingView.Scoreboard[_bowlingView.CurrentGUIThrow]) != true)
             {
-                _currentThrow++;
+                _bowlingView.CurrentGUIThrow++;
             }
         }
 

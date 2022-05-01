@@ -57,9 +57,22 @@ namespace BowlingAppTests.ModelsTests
         }
 
         [Fact]
-        public void CantAddOutOfRange()
+        public void CantAddOutOfRangeToScoreboard()
         {
             Assert.Throws<IndexOutOfRangeException>(() => _bowlingGame.Scoreboard[22] = 15);
+        }
+
+        [Fact]
+        public void CanAddScoreToGUIScoreboard()
+        {
+            _bowlingGame.ScoreboardGUIArray[15] = 8;
+            Assert.Equal(8, _bowlingGame.ScoreboardGUIArray[15]);
+        }
+
+        [Fact]
+        public void CantAddOutOfRangeToGUIScoreboard()
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => _bowlingGame.ScoreboardGUIArray[22] = 15);
         }
 
         [Fact]
@@ -74,6 +87,14 @@ namespace BowlingAppTests.ModelsTests
         {
             _bowlingGame.CurrentCalculatorThrowIndex = 14;
             Assert.Equal(14, _bowlingGame.CurrentCalculatorThrowIndex);
+        }
+
+        [Fact]
+        public void CanFormatScoreboard()
+        {
+            int[] testArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1};
+            string scores = string.Format(_bowlingGame.ScoreboardFormat, testArray.Cast<object>().ToArray());
+            Assert.Equal("[1, 2] [3, 4] [5, 6] [7, 8] [9, 10] [1, 2] [3, 4] [5, 6] [7, 8] [9, 10, 1]", scores);
         }
     }
 }

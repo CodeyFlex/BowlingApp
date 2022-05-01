@@ -14,7 +14,7 @@ namespace BowlingAppTests.ControllerTests
 
         public BowlingControllerTests()
         {
-            _bowlingController = new BowlingController();
+            _bowlingController = new BowlingController(false);
         }
 
         [Fact]

@@ -16,21 +16,30 @@ namespace BowlingApp.Controllers
         private BowlingView _bowlingView;
             //Local
         private Random _rnd;
+        public bool _runGUI;
 
         //Constructor
-        public BowlingController() 
+        public BowlingController(bool runGUI) 
         {
+            //Local
+            _rnd = new Random();
+            _runGUI = true;
+            _runGUI = runGUI;
+
             //Initialization
-            _bowlingView = new BowlingView();
+            _bowlingView = new BowlingView(runGUI);
             _bowlingGame = new BowlingGame(_bowlingView.Name, _bowlingView.Points, _bowlingView.CurrentPins, 
                 _bowlingView.CurrentGUIThrowIndex, _bowlingView.CurrentCalculatorThrowIndex, 
                 _bowlingView.ScoreboardGUIArray, _bowlingView.Scoreboard, 
                 _bowlingView.ScoreboardFormat);
-            //Local
-            _rnd = new Random();
+            
 
             //Initialization Method calls
-            RunGame(); //Currently breaks some tests cause of console dependency
+            if (_runGUI)
+            {
+                RunGame();
+            }
+            
         }
         //Methods
         

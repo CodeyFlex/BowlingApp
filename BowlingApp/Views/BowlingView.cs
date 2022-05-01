@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BowlingApp.Views
 {
-    class BowlingView
+    public class BowlingView
     {
         //Properties
         private string _name;
@@ -17,10 +17,17 @@ namespace BowlingApp.Views
         private int[] _scoreboardGUIArray; //GUI scoreboard
         private int[] _scoreboard;
         private string _scoreboardFormat; //GUI scoreboard formatting
+        //Local
+        public bool _runGUI;
 
         //Default Constructor
-        public BowlingView() 
+        public BowlingView(bool runGUI) 
         {
+            //Local
+            _runGUI = true;
+            _runGUI = runGUI;
+
+            //View variables
             Name = "Player";
             Points = 0;
             CurrentPins = 10;
@@ -30,9 +37,12 @@ namespace BowlingApp.Views
             Scoreboard = new int[21];
             ScoreboardFormat = "[{0}, {1}] [{2}, {3}] [{4}, {5}] [{6}, {7}] [{8}, {9}] [{10}, {11}] [{12}, {13}] [{14}, {15}]" +
                                " [{16}, {17}] [{18}, {19}, {20}]";
+
+            if (_runGUI)
+            {
+                SetName();
+            }
             
-            
-            SetName(); //Currently breaks some tests cause of console dependency
         }
 
         //Getters & Setters

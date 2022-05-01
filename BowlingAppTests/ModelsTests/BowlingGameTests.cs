@@ -29,5 +29,18 @@ namespace BowlingAppTests.ModelsTests
         {
             Assert.Throws<ArgumentException>(() => _bowlingGame.Name = "");
         }
+
+        [Fact]
+        public void CanSetCurrentPins()
+        {
+            _bowlingGame.CurrentPins = 8;
+            Assert.Equal(8, _bowlingGame.CurrentPins);
+        }
+
+        [Fact]
+        public void CantExceedMaxPins()
+        {
+            Assert.Throws<ArgumentException>(() => _bowlingGame.CurrentPins = 15);
+        }
     }
 }

@@ -25,6 +25,12 @@ namespace BowlingAppTests.ModelsTests
         }
 
         [Fact]
+        public void CantMakeNameTooLong()
+        {
+            Assert.Throws<ArgumentException>(() => _bowlingGame.Name = "ThisIsAVeryLongNameThatPeopleStruggleToSayAndICriEveritiem");
+        }
+
+        [Fact]
         public void CantNullName()
         {
             Assert.Throws<ArgumentException>(() => _bowlingGame.Name = "");
@@ -41,6 +47,33 @@ namespace BowlingAppTests.ModelsTests
         public void CantExceedMaxPins()
         {
             Assert.Throws<ArgumentException>(() => _bowlingGame.CurrentPins = 15);
+        }
+
+        [Fact]
+        public void CanAddScoreToScoreboard()
+        {
+            _bowlingGame.Scoreboard[15] = 8;
+            Assert.Equal(8, _bowlingGame.Scoreboard[15]);
+        }
+
+        [Fact]
+        public void CantAddOutOfRange()
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => _bowlingGame.Scoreboard[22] = 15);
+        }
+
+        [Fact]
+        public void CanChangeCurrentGUIThrowIndex()
+        {
+            _bowlingGame.CurrentGUIThrowIndex = 12;
+            Assert.Equal(12, _bowlingGame.CurrentGUIThrowIndex);
+        }
+
+        [Fact]
+        public void CanChangeCurrentCalculatorThrowIndex()
+        {
+            _bowlingGame.CurrentCalculatorThrowIndex = 14;
+            Assert.Equal(14, _bowlingGame.CurrentCalculatorThrowIndex);
         }
     }
 }

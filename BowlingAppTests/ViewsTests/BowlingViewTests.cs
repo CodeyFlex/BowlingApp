@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BowlingAppTests.ViewsTests
 {
-    class BowlingViewTests
+    public class BowlingViewTests
     {
     }
 }

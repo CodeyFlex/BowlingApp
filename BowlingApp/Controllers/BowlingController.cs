@@ -26,6 +26,7 @@ namespace BowlingApp.Controllers
                 _bowlingView.CurrentGUIThrowIndex, _bowlingView.CurrentCalculatorThrowIndex, 
                 _bowlingView.ScoreboardGUIArray, _bowlingView.Scoreboard, 
                 _bowlingView.ScoreboardFormat);
+            //Local
             _rnd = new Random();
 
             //Initialization Method calls

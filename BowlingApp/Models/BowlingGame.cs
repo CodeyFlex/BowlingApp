@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BowlingApp.Models
 {
-    class BowlingGame
+    public class BowlingGame
     {
         //Properties
         private string _name;

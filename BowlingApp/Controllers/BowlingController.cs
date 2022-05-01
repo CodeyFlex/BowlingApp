@@ -87,7 +87,7 @@ namespace BowlingApp.Controllers
         //Game play methods
         public void RandomThrow() //For GUI
         {
-            int _throw = _rnd.Next(10, _bowlingView.CurrentPins); //Gets random throw lower than current pins
+            int _throw = _rnd.Next(0, _bowlingView.CurrentPins); //Gets random throw lower than current pins
             _bowlingView.CurrentPins -= _throw; //changes current pins amount after throw
             _bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] = _throw; //Adds throw score to scoreboard
             _bowlingView.ScoreboardGUIArray[_bowlingView.CurrentGUIThrowIndex] = _throw; //Adds throw to GUI scoreboard

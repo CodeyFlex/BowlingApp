@@ -12,8 +12,11 @@ namespace BowlingApp.Views
         private string _name;
         private int _points;
         private int _currentPins;
-        private int _currentGuiThrow;
+        private int _currentGuiThrowIndex;
+        private int _currentCalculatorThrowIndex;
+        private int[] _scoreboardGUIArray; //GUI scoreboard
         private int[] _scoreboard;
+        private string _scoreboardFormat; //GUI scoreboard formatting
 
         //Default Constructor
         public BowlingView() 
@@ -21,32 +24,34 @@ namespace BowlingApp.Views
             Name = "Player";
             Points = 0;
             CurrentPins = 10;
-            _currentGuiThrow = 0;
-            _scoreboard = new int[21];
-            SetName();
-            //GetValues();
+            CurrentGUIThrowIndex = 0;
+            CurrentCalculatorThrowIndex = 0;
+            ScoreboardGUIArray = new int[21];
+            Scoreboard = new int[21];
+            ScoreboardFormat = "[{0}, {1}] [{2}, {3}] [{4}, {5}] [{6}, {7}] [{8}, {9}] [{10}, {11}] [{12}, {13}] [{14}, {15}]" +
+                               " [{16}, {17}] [{18}, {19}, {20}]";
+            
+            
+            SetName(); //Currently breaks some tests cause of console dependency
         }
 
         //Getters & Setters
         public string Name { get => _name; set => _name = value; }
         public int Points { get => _points; set => _points = value; }
         public int CurrentPins { get => _currentPins; set => _currentPins = value; }
-        public int CurrentGUIThrow { get => _currentGuiThrow; set => _currentGuiThrow = value; }
+        public int CurrentGUIThrowIndex { get => _currentGuiThrowIndex; set => _currentGuiThrowIndex = value; }
+        public int CurrentCalculatorThrowIndex { get => _currentCalculatorThrowIndex; set => _currentCalculatorThrowIndex = value; }
         public int[] Scoreboard { get => _scoreboard; set => _scoreboard = value; }
-
+        public int[] ScoreboardGUIArray { get => _scoreboardGUIArray; set => _scoreboardGUIArray = value; }
+        public string ScoreboardFormat { get => _scoreboardFormat; set => _scoreboardFormat = value; }
 
         //Methods
-        private void GetValues()
-        {
-            //Not implemented
-        }
-
         public void ShowValues()
         {
             Console.WriteLine("Player Name: " + Name);
             Console.WriteLine("Current Pins: " + CurrentPins);
             Console.WriteLine("Points: " + Points);
-            Console.WriteLine("Current Throw: " + CurrentGUIThrow);
+            Console.WriteLine("Current Throw: " + CurrentGUIThrowIndex);
         }
         public void DisplayPinsHit(int pins)
         {

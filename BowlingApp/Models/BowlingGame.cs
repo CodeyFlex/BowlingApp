@@ -12,27 +12,38 @@ namespace BowlingApp.Models
         private string _name;
         private int _points;
         private int _currentPins;
-        private int _currentGuiThrow;
+        private int _currentGuiThrowIndex;
+        private int _currentCalculatorThrowIndex;
+        private int[] _scoreboardGUIArray; //GUI scoreboard
         private int[] _scoreboard;
+        private string _scoreboardFormat; //GUI scoreboard formatting
 
         //Default constructor
         public BowlingGame() 
         {
             Name = "Player";
             Points = 0;
-            Current_Pins = 10;
-            CurrentGUIThrow = 0;
+            CurrentPins = 10;
+            CurrentGUIThrowIndex = 0;
+            CurrentCalculatorThrowIndex = 0;
+            ScoreboardGUIArray = new int[21];
             Scoreboard = new int[21];
+            ScoreboardFormat = "[{0}, {1}] [{2}, {3}] [{4}, {5}] [{6}, {7}] [{8}, {9}] [{10}, {11}] [{12}, {13}] [{14}, {15}]" +
+                               " [{16}, {17}] [{18}, {19}, {20}]";
         }
 
         //Overloaded constructor
-        public BowlingGame(string name, int points, int current_Pins, int currentGuiThrow, int[] scoreboard) 
+        public BowlingGame(string name, int points, int currentPins, int currentGuiThrowIndex, 
+            int currentCalculatorThrowIndex, int[] scoreboardGUIArray, int[] scoreboard, string scoreboardFormat) 
         {
             Name = name;
             Points = points;
-            Current_Pins = current_Pins;
-            CurrentGUIThrow = currentGuiThrow;
+            CurrentPins = currentPins;
+            CurrentGUIThrowIndex = currentGuiThrowIndex;
+            CurrentCalculatorThrowIndex = currentCalculatorThrowIndex;
+            ScoreboardGUIArray = scoreboardGUIArray;
             Scoreboard = scoreboard;
+            ScoreboardFormat = scoreboardFormat;
         }
 
         //Getters & Setters
@@ -49,7 +60,7 @@ namespace BowlingApp.Models
             }
         }
         public int Points { get => _points; set => _points = value; }
-        public int Current_Pins
+        public int CurrentPins
         {
             get => _currentPins;
             set
@@ -61,7 +72,10 @@ namespace BowlingApp.Models
                 _currentPins = value;
             }
         }
-        public int CurrentGUIThrow { get => _currentGuiThrow; set => _currentGuiThrow = value; }
+        public int CurrentGUIThrowIndex { get => _currentGuiThrowIndex; set => _currentGuiThrowIndex = value; }
+        public int CurrentCalculatorThrowIndex { get => _currentCalculatorThrowIndex; set => _currentCalculatorThrowIndex = value; }
+        public int[] ScoreboardGUIArray { get => _scoreboardGUIArray; set => _scoreboardGUIArray = value; }
         public int[] Scoreboard { get => _scoreboard; set => _scoreboard = value; }
+        public string ScoreboardFormat { get => _scoreboardFormat; set => _scoreboardFormat = value; }
     }
 }

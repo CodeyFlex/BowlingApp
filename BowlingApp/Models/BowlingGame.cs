@@ -16,14 +16,13 @@ namespace BowlingApp.Models
         private int _currentCalculatorThrowIndex;
         private int[] _scoreboardGUIArray; //GUI scoreboard
         private int[] _scoreboard;
-        private string _scoreboardFormat; //GUI scoreboard formatting
 
         //Default constructor
         public BowlingGame() 
         {
             Name = "Player";
             Points = 0;
-            CurrentPins = 10;
+            CurrentPins = 11;
             CurrentGUIThrowIndex = 0;
             CurrentCalculatorThrowIndex = 0;
             ScoreboardGUIArray = new int[21];
@@ -59,7 +58,7 @@ namespace BowlingApp.Models
                 _name = value;
             }
         }
-        public int Points { get => _points; set => _points = value; }
+        public int Points { get; set; }
         public int CurrentPins
         {
             get => _currentPins;
@@ -67,15 +66,15 @@ namespace BowlingApp.Models
             {
                 if (value < 0)
                     throw new ArgumentException("Amount of pins cannot be a negative value");
-                if (value > 10)
-                    throw new ArgumentException("Current pins exceeded maximum amount of = 10");
+                if (value > 11)
+                    throw new ArgumentException("Current pins exceeded maximum amount of = 11");
                 _currentPins = value;
             }
         }
-        public int CurrentGUIThrowIndex { get => _currentGuiThrowIndex; set => _currentGuiThrowIndex = value; }
-        public int CurrentCalculatorThrowIndex { get => _currentCalculatorThrowIndex; set => _currentCalculatorThrowIndex = value; }
-        public int[] ScoreboardGUIArray { get => _scoreboardGUIArray; set => _scoreboardGUIArray = value; }
-        public int[] Scoreboard { get => _scoreboard; set => _scoreboard = value; }
-        public string ScoreboardFormat { get => _scoreboardFormat; set => _scoreboardFormat = value; }
+        public int CurrentGUIThrowIndex { get; set; }
+        public int CurrentCalculatorThrowIndex { get; set; }
+        public int[] ScoreboardGUIArray { get; set; }
+        public int[] Scoreboard { get; set; }
+        public string ScoreboardFormat { get; set; }
     }
 }

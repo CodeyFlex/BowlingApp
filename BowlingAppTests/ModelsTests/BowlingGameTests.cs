@@ -46,7 +46,7 @@ namespace BowlingAppTests.ModelsTests
         [Fact]
         public void CantExceedMaxPins()
         {
-            Assert.Throws<ArgumentException>(() => _bowlingGame.CurrentPins = 15);
+            Assert.Throws<ArgumentException>(() => _bowlingGame.CurrentPins = 12);
         }
 
         [Fact]

@@ -30,7 +30,7 @@ namespace BowlingApp.Views
             //View variables
             Name = "Player";
             Points = 0;
-            CurrentPins = 10;
+            CurrentPins = 11;
             CurrentGUIThrowIndex = 0;
             CurrentCalculatorThrowIndex = 0;
             ScoreboardGUIArray = new int[21];
@@ -46,14 +46,14 @@ namespace BowlingApp.Views
         }
 
         //Getters & Setters
-        public string Name { get => _name; set => _name = value; }
-        public int Points { get => _points; set => _points = value; }
-        public int CurrentPins { get => _currentPins; set => _currentPins = value; }
-        public int CurrentGUIThrowIndex { get => _currentGuiThrowIndex; set => _currentGuiThrowIndex = value; }
-        public int CurrentCalculatorThrowIndex { get => _currentCalculatorThrowIndex; set => _currentCalculatorThrowIndex = value; }
-        public int[] Scoreboard { get => _scoreboard; set => _scoreboard = value; }
-        public int[] ScoreboardGUIArray { get => _scoreboardGUIArray; set => _scoreboardGUIArray = value; }
-        public string ScoreboardFormat { get => _scoreboardFormat; set => _scoreboardFormat = value; }
+        public string Name { get; set; }
+        public int Points { get; set; }
+        public int CurrentPins { get; set; }
+        public int CurrentGUIThrowIndex { get; set; }
+        public int CurrentCalculatorThrowIndex { get; set; }
+        public int[] Scoreboard { get; set; }
+        public int[] ScoreboardGUIArray { get; set; }
+        public string ScoreboardFormat { get; set; }
 
         //Methods
         public void ShowValues()

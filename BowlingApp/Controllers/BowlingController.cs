@@ -104,19 +104,19 @@ namespace BowlingApp.Controllers
             {
                 _bowlingView.CurrentGUIThrowIndex++;
                 _bowlingView.CurrentCalculatorThrowIndex++;
-                _bowlingView.CurrentPins = 10;
+                _bowlingView.CurrentPins = 11;
             }
             else if (_bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] == 10) //Strike
             {
                 _bowlingView.CurrentGUIThrowIndex += 2;
                 _bowlingView.CurrentCalculatorThrowIndex++;
-                _bowlingView.CurrentPins = 10;
+                _bowlingView.CurrentPins = 11;
             }
             else if (_bowlingView.CurrentGUIThrowIndex % 2 == 1 && _bowlingView.CurrentGUIThrowIndex <= 19) //Every new frame
             {
                 _bowlingView.CurrentGUIThrowIndex++;
                 _bowlingView.CurrentCalculatorThrowIndex++;
-                _bowlingView.CurrentPins = 10;
+                _bowlingView.CurrentPins = 11;
             }
             else
             {

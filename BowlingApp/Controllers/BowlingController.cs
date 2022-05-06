@@ -93,6 +93,7 @@ namespace BowlingApp.Controllers
         {
             _bowlingView.Scoreboard[_bowlingView.CurrentGUIThrowIndex++] = pins;
         }
+
         //Game play methods
         public void RandomThrow() //For GUI
         {
@@ -129,7 +130,7 @@ namespace BowlingApp.Controllers
         public void CheckForThirdFrame()
         {
             //Checking for the 21st shot
-            if (_bowlingView.CurrentGUIThrowIndex == 20 && IsAStrike(_bowlingView.Scoreboard[_bowlingView.CurrentGUIThrowIndex]) != true)
+            if (_bowlingView.CurrentGUIThrowIndex == 20 && !IsAStrike(_bowlingView.Scoreboard[_bowlingView.CurrentGUIThrowIndex]))
             {
                 _bowlingView.CurrentGUIThrowIndex++;
             }

@@ -65,7 +65,7 @@ namespace BowlingApp.Views
         }
         public void DisplayPinsHit(int pins)
         {
-            Console.WriteLine("You hit " + pins + " Pins!");
+            Console.WriteLine($"You hit {pins} Pins!");
         }
 
         public void DisplayThrowHint()

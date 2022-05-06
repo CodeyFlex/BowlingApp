@@ -98,22 +98,22 @@ namespace BowlingApp.Controllers
         public void RandomThrow() //For GUI
         {
             int _throw = _rnd.Next(0, _bowlingView.CurrentPins); //Gets random throw lower than current pins
-            _bowlingView.CurrentPins -= _throw; //changes current pins amount after throw
-            _bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] = _throw; //Adds throw score to scoreboard
-            _bowlingView.ScoreboardGUIArray[_bowlingView.CurrentGUIThrowIndex] = _throw; //Adds throw to GUI scoreboard
-            if (_bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] == 10 && _bowlingView.CurrentGUIThrowIndex >= 18)
+            DeductThrowFromCurrentPins(_throw); //changes current pins amount after throw
+            UpdateScoreboard(_throw); //Adds throw score to scoreboard
+            UpdateGUIScoreboard(_throw); //Adds throw to GUI scoreboard
+            if (IsAStrike(_bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex]) && _bowlingView.CurrentGUIThrowIndex >= 18) //Strike at final frames
             {
                 _bowlingView.CurrentGUIThrowIndex++;
                 _bowlingView.CurrentCalculatorThrowIndex++;
                 _bowlingView.CurrentPins = 11;
             }
-            else if (_bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] == 10) //Strike
+            else if (IsAStrike(_bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex])) //Strike
             {
                 _bowlingView.CurrentGUIThrowIndex += 2;
                 _bowlingView.CurrentCalculatorThrowIndex++;
                 _bowlingView.CurrentPins = 11;
             }
-            else if (_bowlingView.CurrentGUIThrowIndex % 2 == 1 && _bowlingView.CurrentGUIThrowIndex <= 19) //Every new frame
+            else if (IsANewFrame(_bowlingView.CurrentGUIThrowIndex) && _bowlingView.CurrentGUIThrowIndex <= 19) //Every new frame
             {
                 _bowlingView.CurrentGUIThrowIndex++;
                 _bowlingView.CurrentCalculatorThrowIndex++;
@@ -134,6 +134,25 @@ namespace BowlingApp.Controllers
             {
                 _bowlingView.CurrentGUIThrowIndex++;
             }
+        }
+        
+
+        //Running of game
+        private int DeductThrowFromCurrentPins(int _throw)
+        {
+            return _bowlingView.CurrentPins -= _throw;
+        }
+        private int UpdateScoreboard(int _throw)
+        {
+            return _bowlingView.Scoreboard[_bowlingView.CurrentCalculatorThrowIndex] = _throw;
+        }
+        private int UpdateGUIScoreboard(int _throw)
+        {
+            return _bowlingView.ScoreboardGUIArray[_bowlingView.CurrentGUIThrowIndex] = _throw;
+        }
+        private bool IsANewFrame(int frameIndex)
+        {
+            return frameIndex % 2 == 1;
         }
 
         //Calculation of the score

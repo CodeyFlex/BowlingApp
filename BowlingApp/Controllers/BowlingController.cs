@@ -70,12 +70,12 @@ namespace BowlingApp.Controllers
                 {
                     if (IsAStrike(frameIndex)) //Strike
                     {
-                        score += GetStrikeScore(frameIndex);
+                        score += GetStrikeOrSpareScore(frameIndex);
                         frameIndex++;
                     }
                     else if (IsASpare(frameIndex)) //Spare
                     {
-                        score += GetSpareScore(frameIndex);
+                        score += GetStrikeOrSpareScore(frameIndex);
                         frameIndex += 2;
                     }
                     else //Standard shot
@@ -164,11 +164,7 @@ namespace BowlingApp.Controllers
         {
             return _bowlingView.Scoreboard[frameIndex] + _bowlingView.Scoreboard[frameIndex + 1] == 10;
         }
-        private int GetStrikeScore(int frameIndex)
-        {
-            return _bowlingView.Scoreboard[frameIndex] + _bowlingView.Scoreboard[frameIndex + 1] + _bowlingView.Scoreboard[frameIndex + 2];
-        }
-        private int GetSpareScore(int frameIndex)
+        private int GetStrikeOrSpareScore(int frameIndex)
         {
             return _bowlingView.Scoreboard[frameIndex] + _bowlingView.Scoreboard[frameIndex + 1] + _bowlingView.Scoreboard[frameIndex + 2];
         }
